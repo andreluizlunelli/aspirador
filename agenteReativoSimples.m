@@ -25,8 +25,12 @@ function acao = agenteReativoSimples(percepcao)
     5 5 1
     4 5 1
     3 5 1
-    2 5 1
-        
+    2 5 1        
   ];        
+  
+  if percepcao.estado == 2, % ta sujo
+    acao = 'aspirar';      
+  end;  
+    
 
 end

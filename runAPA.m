@@ -14,7 +14,8 @@ mostraAmbiente(sala);
 %pesquise para ver para que servem as funções (hold on, hold off e pause)
 hold on; %mantém estático o ambiente feito anteriormente para posicionar o limpador
 %posizionar o APA nas posições estabelecidas anteriormente
-posicaoAspirador(2, 2);
+_pX = _pY = 2;
+posicaoAspirador(_pX, _pY);
 hold off;
 pause(1);
 
@@ -23,17 +24,16 @@ pause(1);
 %gera uma variável de estrutura para saber a posição e o estado de cada
 %célula = struct('nome', valor) - veja a função struct
 
-
 _sujera = 2;
 acoesAg = {'acima', 'abaixo', 'esquerda', 'direita', 'aspirar'}; %---ações do agente---
-_pX = _pY = 2;
+
 salaSuja = sala(_pX, _pY) == _sujera;
 acao = 'aspirar'
 percepcao = struct('x', _pX, 'y', _pY, 'estado', salaSuja);
 
 while 1
     %escolhe a ação de acordo com a percepção - chama função agenteReativoSimples
-    agenteReativoSimples(percepcao);
+    acao = agenteReativoSimples(percepcao);
     
     %chama a função atualizaAmbiente para atualizar a ação realizada
     atualizaAmbiente(sala, acao, x, y)
