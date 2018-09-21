@@ -27,12 +27,16 @@ pause(1);
 
 _sujera = 2;
 acoesAg = {'acima', 'abaixo', 'esquerda', 'direita', 'aspirar'}; %---ações do agente---
+% ações = {'acima', 'abaixo', 'esquerda', 'direita', 'aspirar'}
+%            1         2          3           4          5
 
 salaSuja = sala(_pX, _pY);
-acao = 'aspirar'
+
 percepcao = struct('x', _pX, 'y', _pY, 'estado', salaSuja);
 
 while 1
+    salaSuja = sala(percepcao.x, percepcao.y);
+    percepcao.estado = salaSuja;
     %escolhe a ação de acordo com a percepção - chama função agenteReativoSimples
     acao = agenteReativoSimples(percepcao);
     
@@ -52,6 +56,6 @@ while 1
     %atualiza a percepção e o estado depois de concluir a ação    
     sala = modSala;
     percepcao.x = modX;
-    percepcao.y = modY;    
+    percepcao.y = modY;        
 end
 
