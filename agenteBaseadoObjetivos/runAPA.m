@@ -30,19 +30,24 @@ acoesAg = {'acima', 'abaixo', 'esquerda', 'direita', 'aspirar'}; %---ações do ag
 %            1         2          3           4          5
 
 salaSuja = sala(_pX, _pY);
-
 percepcao = struct('x', _pX, 'y', _pY, 'estado', salaSuja);
+contador = 0;
 
 
 % oi tudo bem? espero que seu dia tenha sido otimo antes de começar a corrigir os trabalhos
 % se não foi ainda, espero que nossos trabalhos possam alegrar seu dia :D
 
 
-while 1
+b = 1
+while b
     salaSuja = sala(percepcao.x, percepcao.y);
-    percepcao.estado = salaSuja;
-    %escolhe a ação de acordo com a percepção - chama função agenteReativoSimples
+    percepcao.estado = salaSuja;       
+    
     acao = agenteObjetivo(percepcao, checkObj(sala)); % 1 ta sujo
+    
+    if (acao == 5) 
+      contador = contador + 1;
+    endif
     
     %chama a função atualizaAmbiente para atualizar a ação realizada
     [modSala, modX, modY] = atualizaAmbiente(sala, acao, percepcao.x, percepcao.y);
@@ -61,5 +66,12 @@ while 1
     sala = modSala;
     percepcao.x = modX;
     percepcao.y = modY;        
+    
+    if (acao == 6)
+      b = 0;
+    endif
 end
+
+disp('contador'); 
+disp(contator); 
 
