@@ -9,7 +9,7 @@ function acao = agenteReativoSimples(percepcao)
 % ações = {'acima', 'abaixo', 'esquerda', 'direita', 'aspirar'}
 %            1         2          3           4          5
 
-  mapear = [
+  mapa = [
     2 2 2
     3 2 2
     4 2 2
@@ -29,8 +29,16 @@ function acao = agenteReativoSimples(percepcao)
   ];        
   
   if percepcao.estado == 2, % ta sujo
-    acao = 'aspirar';      
-  end;  
-    
-
+    acao = 5;      
+  else
+    for i = 1:length(mapa(:,1))
+      acesso = mapa(i,:)
+      tmpX = acesso(1);
+      tmpY = acesso(2);      
+      if percepcao.x == tmpX && percepcao.y == tmpY
+        acao = acesso(3);
+        break;
+      endif;      
+    endfor; 
+  end;      
 end

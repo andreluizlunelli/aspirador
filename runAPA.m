@@ -14,7 +14,8 @@ mostraAmbiente(sala);
 %pesquise para ver para que servem as funções (hold on, hold off e pause)
 hold on; %mantém estático o ambiente feito anteriormente para posicionar o limpador
 %posizionar o APA nas posições estabelecidas anteriormente
-_pX = _pY = 2;
+_pX = 2;
+_pY = 2;
 posicaoAspirador(_pX, _pY);
 hold off;
 pause(1);
@@ -27,7 +28,7 @@ pause(1);
 _sujera = 2;
 acoesAg = {'acima', 'abaixo', 'esquerda', 'direita', 'aspirar'}; %---ações do agente---
 
-salaSuja = sala(_pX, _pY) == _sujera;
+salaSuja = sala(_pX, _pY);
 acao = 'aspirar'
 percepcao = struct('x', _pX, 'y', _pY, 'estado', salaSuja);
 
@@ -36,20 +37,21 @@ while 1
     acao = agenteReativoSimples(percepcao);
     
     %chama a função atualizaAmbiente para atualizar a ação realizada
-    atualizaAmbiente(sala, acao, x, y)
-    
-    %Mostra na tela as ações escolhidas e percepções (veja as funções 'disp' e 'num2str')
-    %disp('x:'+x);
-    %disp('y:'+y);
-    %disp('acao:'+acao);
-    
+    [modSala, modX, modY] = atualizaAmbiente(sala, acao, percepcao.x, percepcao.y);
+        
+    %Mostra na tela as ações escolhidas e percepções (veja as funções 'disp' e 'num2str')        
     
     %mostra o ambiente atualizado
-    mostraAmbiente(sala);
+    mostraAmbiente(modSala);
+    hold on;
     %posiciona o aspirador no ambiente atualizado
-    posicaoAspirador(x, y)
+    posicaoAspirador(percepcao.x, percepcao.y)
+    hold off;
+    pause(0.1);
 
-    
     %atualiza a percepção e o estado depois de concluir a ação    
+    sala = modSala;
+    percepcao.x = modX;
+    percepcao.y = modY;    
 end
 
